@@ -1,11 +1,6 @@
 import tkinter
 import tkinter as Conversor
-import requests
-from PIL import Image
-from io import BytesIO
 from tkinter import ttk
-from xml.etree import ElementTree
-from PIL.Image import ElementTree
 from colorama import Fore, Style, init
 from tkinter import font
 
@@ -17,10 +12,10 @@ moedas = {'USD': 5.46,
           'CHF': 6.45
           }
 
-def teste(event):
+def Resultado(event):
     escolha = caixaselecao.get()
     conta = moedas[escolha[0:3]]
-    resultado = float(valordigitado.get()) * conta
+    resultado = float(valordigitado.get()) / conta
     variavelConvertida.set(resultado)
 
 #Criação da tela
@@ -57,7 +52,7 @@ caixaselecao = ttk.Combobox(tela)
 caixaselecao['values']= ('USD - Dolar Americano', 'BRL - Real', 'EUR - Euro', 'GBP - Libra', 'JPY - Iene', 'CHF - Franco Suiço')
 caixaselecao.current()
 caixaselecao.place(x=250 , y= 200)
-caixaselecao.bind("<<ComboboxSelected>>", teste)
+caixaselecao.bind("<<ComboboxSelected>>", Resultado)
 
 
 tela.mainloop()
