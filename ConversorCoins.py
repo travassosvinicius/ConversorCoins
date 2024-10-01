@@ -1,16 +1,15 @@
-import tkinter
-import tkinter as Conversor
-from tkinter import ttk
-from colorama import Fore, Style, init
-from tkinter import font
+from doctest import master
+import customtkinter as Conversor
+from customtkinter import set_appearance_mode, CTkLabel
 
 moedas = {'USD': 5.46,
           'BRL': 1,
           'EUR': 6.09,
-          'GBP': 7.30,
+          'GBP': 7.24,
           'JPY': 0.0038,
           'CHF': 6.45
           }
+
 
 def Resultado(event):
     escolha = caixaselecao.get()
@@ -18,41 +17,54 @@ def Resultado(event):
     resultado = float(valordigitado.get()) / conta
     variavelConvertida.set(resultado)
 
+def mudar(choice):
+    set_appearance_mode(choice)
+
+
 #Criação da tela
-tela = Conversor.Tk()
+tela = Conversor.CTk()
 tela.title('Conversor de Moedas')
 tela.configure(background='lightblue')
 tela.geometry('600x600')
 
-fonte1 = font.Font(family= "Times New Roman", size= 30)
-fonte2 = font.Font(family= "Times New Roman", size= 16)
+
 
 #Criação primeira lable
-ConversordeMoeda = Conversor.Label(text='Converta sua Moeda', font=fonte1)
-ConversordeMoeda.place(x= 130, y= 5)
+conversor = Conversor.CTkLabel(tela,text='Converta sua Moeda')
+conversor.place(x= 250, y= 5)
 
 #Criação segunda lable
-DigiteValor = Conversor.Label(text='Digite um valor em BRL', font=fonte2)
+DigiteValor = Conversor.CTkLabel(tela,text='Digite um valor em BRL')
 DigiteValor.place(x=-1,y=120)
 
-ValorConvertido = Conversor.Label(text='Valor Convertido', font=fonte2)
+ValorConvertido = Conversor.CTkLabel(tela,text='Valor Convertido')
 ValorConvertido.place(x=-1,y=280)
 
-escolhamoeda = Conversor.Label(text='Escolha a Moeda', font=fonte2)
+escolhamoeda = Conversor.CTkLabel(tela,text='Escolha a Moeda')
 escolhamoeda.place(x=-1,y=195)
 
-valordigitado = Conversor.Entry(tela)
+valordigitado = Conversor.CTkEntry(tela)
 valordigitado.place(x= 250, y= 125)
 
-variavelConvertida = tkinter.StringVar()
-valormoeda = Conversor.Entry(tela, textvariable=variavelConvertida)
+variavelConvertida = Conversor.StringVar()
+valormoeda = Conversor.CTkEntry(tela, textvariable=variavelConvertida)
 valormoeda.place(x= 250, y= 285)
 
-caixaselecao = ttk.Combobox(tela)
-caixaselecao['values']= ('USD - Dolar Americano', 'BRL - Real', 'EUR - Euro', 'GBP - Libra', 'JPY - Iene', 'CHF - Franco Suiço')
-caixaselecao.current()
+caixaselecao = Conversor.CTkComboBox(master)
+values= ('USD - Dolar Americano', 'BRL - Real', 'EUR - Euro', 'GBP - Libra', 'JPY - Iene', 'CHF - Franco Suiço')
+caixaselecao.configure(values=values, command=Resultado, width=160)
+caixaselecao.set('Escolha uma moeda')
+
 caixaselecao.place(x=250 , y= 200)
-caixaselecao.bind("<<ComboboxSelected>>", Resultado)
+
+escolhaAparencia = CTkLabel(tela, text='Escolha uma aparência para a janela')
+escolhaAparencia.place(x=220 , y=450)
+
+aparencia = Conversor.CTkComboBox(tela,)
+aparenciaValores = ('light' , 'dark')
+aparencia.configure(values=aparenciaValores, command=mudar, width=160)
+aparencia.set('Escolha um tema')
+aparencia.place(x=250 , y=500)
 
 
 tela.mainloop()
